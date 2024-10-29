@@ -18,9 +18,9 @@ def get_date(data: str) -> str:
     return f"{data[8:10]}.{data[5:7]}.{data[0:4]}"
 
 
-print(mask_account_card("Maestro 1596837868705199"))
-print(mask_account_card("Счет 64686473678894779589"))
-print(mask_account_card("MasterCard 7158300734726758"))
-print(mask_account_card("Visa Classic 6831982476737658"))
-print(mask_account_card("Visa Platinum 8990922113665229"))
-print(get_date("2024-03-11T02:26:18.671407"))
+# print(mask_account_card("Maestro 1596837868705199"))
+# print(mask_account_card("Счет 64686473678894779589"))
+# print(mask_account_card("MasterCard 7158300734726758"))
+# print(mask_account_card("Visa Classic 6831982476737658"))
+# print(mask_account_card("Visa Platinum 8990922113665229"))
+# print(get_date("2024-03-11T02:26:18.671407"))
