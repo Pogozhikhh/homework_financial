@@ -1,7 +1,7 @@
 from typing import Any, Iterable
 
 
-def filter_by_state(list_of_dicts: Iterable[dict[str, Any]], state: str = "EXECUTED") -> Any:
+def filter_by_state(list_of_dicts: Iterable[dict[str, Any]], state: str = "EXECUTED") -> Iterable[dict[str, Any]]:
     """Функция принимает список словарей и значение для ключа и возвращает новый
     список содержащий только те словари у которых ключ содержит переданное значение"""
     return [t for t in list_of_dicts if t.get("state") == state]
