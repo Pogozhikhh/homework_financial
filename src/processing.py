@@ -1,4 +1,5 @@
-from typing import Iterable, Any
+from typing import Any, Iterable
+
 
 def filter_by_state(list_of_dicts: Iterable[dict[str, Any]], state: str = "EXECUTED") -> Any:
     """Функция принимает список словарей и значение для ключа и возвращает новый
