@@ -1,18 +1,22 @@
+from typing import Any
+
 from masks import get_mask_account, get_mask_card_number
 
 
-def mask_account_card(type_card: str) -> str:
+def mask_account_card(type_card: Any) -> str:
     """Вывод замаскированных счетов и карт"""
-
-    if "Счет" in type_card:
-        return "Счет " + get_mask_account(type_card)
+    if type_card == "":
+        raise ValueError("нет данных")
     else:
-        card = get_mask_card_number(type_card[-16:])
-        correct_card = type_card.replace(type_card[-16:], card)
-        return correct_card
+        if "Счет" in type_card:
+            return "Счет " + get_mask_account(type_card[-16:])
+        else:
+            card = get_mask_card_number(type_card[-16:])
+            correct_card = type_card.replace(type_card[-16:], card)
+            return correct_card
 
 
-def get_date(data: str) -> str:
+def get_date(data: Any) -> str:
     """Функция преобразующая дату"""
 
     return f"{data[8:10]}.{data[5:7]}.{data[0:4]}"
