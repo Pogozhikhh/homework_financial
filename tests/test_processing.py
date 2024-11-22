@@ -27,6 +27,5 @@ def test_sort_by_date_incorrect_formating():
     pass
 
 
-
 def test_sort_by_date_incorrect_formating_texting():
     pass

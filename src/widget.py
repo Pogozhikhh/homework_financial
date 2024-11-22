@@ -6,23 +6,29 @@ from src.masks import get_mask_account, get_mask_card_number
 def mask_account_card(type_card: Any) -> str:
     """Вывод замаскированных счетов и карт"""
     if type_card == "":
-        raise ValueError('нет данных')
+        raise ValueError("нет данных")
     else:
-        if "Счет" in type_card:
-            return "Счет " + get_mask_account(type_card[-16:])
+        type_card_split = type_card.split()
+        if type_card_split[0] == "Счёт" or type_card_split[0] == "Счет":
+            if type_card_split[-1] == "Счет":
+                raise ValueError("Номер счета не указан")
+            return "Счет " + get_mask_account(type_card_split[-1])
         else:
-            card = get_mask_card_number(type_card[-16:])
-            correct_card = type_card.replace(type_card[-16:], card)
-            return correct_card
+            if type_card_split[-1].isdigit():
+                card = get_mask_card_number(type_card_split[-1])
+                correct_card = type_card.replace(type_card_split[-1], card)
+                return correct_card
+            else:
+                raise ValueError("Номер карты не указан")
 
 
 def get_date(data: Any) -> str:
     """Функция преобразующая дату"""
-    data_list = data.split('-')
+    data_list = data.split("-")
     if data_list[0].isdigit() and data_list[1].isdigit() and data_list[2][:2].isdigit and len(data_list) == 3:
-        returned_date = data_list[2][:2] + '.' + data_list[1] + '.' + data_list[0]
+        returned_date = data_list[2][:2] + "." + data_list[1] + "." + data_list[0]
         return returned_date
-    raise ValueError('Некорректный формат даты')
+    raise ValueError("Некорректный формат даты")
 
 
 # print(mask_account_card("Maestro 1596837868705199"))
