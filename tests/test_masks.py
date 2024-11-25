@@ -18,7 +18,7 @@ def test_get_mask_card_number_len():
 
 
 def test_get_mask_card_number_type():
-    """ Проверка корректного типа данных"""
+    """Проверка корректного типа данных"""
     with pytest.raises(ValueError) as exc_info:
         get_mask_card_number("1234567890")
 
