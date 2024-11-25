@@ -7,17 +7,15 @@ def get_mask_card_number(card_number: Any) -> str:
     if 12 <= len(card_number_str) <= 20:
         masked_card = card_number_str[:4] + " " + card_number_str[4:6] + "** **** " + card_number_str[-4:]
         return str(masked_card)
-    else:
-        raise ValueError("Некорректный номер карты")
+    raise ValueError("Некорректный номер карты")
 
 
 def get_mask_account(card_number: Any) -> str:
     """Возвращает замаскированные последние числа карты"""
     card_number_str = str(card_number)  # перевод числа в строку
-    if card_number_str.isdigit() and 12 < len(card_number_str) <= 20:
+    if card_number_str.isdigit() and 12 <= len(card_number_str) <= 20:
         return f"**{card_number_str[-4:]}"
-    else:
-        raise ValueError("Неправильная длина номера")
+    raise ValueError("Неправильная длина номера")
 
 
 # print(get_mask_card_number(123456789012))

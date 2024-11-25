@@ -18,11 +18,11 @@ def test_get_mask_card_number_len():
 
 
 def test_get_mask_card_number_type():
-    """ """
-    with pytest.raises(TypeError) as exc_info:
+    """ Проверка корректного типа данных"""
+    with pytest.raises(ValueError) as exc_info:
         get_mask_card_number("1234567890")
 
-    assert str(exc_info.value) == "Некорректный тип данных"
+    assert str(exc_info.value) == "Некорректный номер карты"
 
 
 def test_get_mask_account():
@@ -32,14 +32,14 @@ def test_get_mask_account():
 
 
 def test_get_mask_account_type():
-    with pytest.raises(TypeError) as exc_info:
-        get_mask_account("123456789012")
+    with pytest.raises(ValueError) as exc_info:
+        get_mask_account("12345")
 
-    assert str(exc_info.value) == "Неправильный тип данных"
+    assert str(exc_info.value) == "Неправильная длина номера"
 
 
 def test_get_mask_account_len():
     with pytest.raises(ValueError) as exc_info:
-        get_mask_account(123456789)
+        get_mask_account(1234567890)
 
     assert str(exc_info.value) == "Неправильная длина номера"

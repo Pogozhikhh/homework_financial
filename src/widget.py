@@ -22,7 +22,7 @@ def mask_account_card(type_card: Any) -> str:
                 raise ValueError("Номер карты не указан")
 
 
-def get_date(data: Any) -> str:
+def get_date(data: Any) -> Any:
     """Функция преобразующая дату"""
     data_list = data.split("-")
     if data_list[0].isdigit() and data_list[1].isdigit() and data_list[2][:2].isdigit and len(data_list) == 3:
