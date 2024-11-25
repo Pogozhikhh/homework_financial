@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import Any, Iterable
 
 
@@ -10,4 +11,7 @@ def filter_by_state(list_of_dicts: Iterable[dict[str, Any]], state: str = "EXECU
 def sort_by_date(list_of_dicts: Iterable[dict[str, Any]], reverse_list: bool = True) -> Iterable[dict[str, Any]]:
     """Функция принимает список и сортирует его по убыванию"""
 
-    return sorted(list_of_dicts, key=lambda x: x["date"], reverse=reverse_list)
+    sorted_list = sorted(
+        list_of_dicts, key=lambda strindate: datetime.fromisoformat(strindate["date"]), reverse=reverse_list
+    )
+    return sorted_list
