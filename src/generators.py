@@ -1,13 +1,24 @@
-from typing import Any, Dict, Generator, List, Union
+from typing import Any, Dict, Generator, Iterator, List
 
 from tests.conftest import transactions
 
 
-def filter_by_currency(info: Union[list, dict], currency: str) -> Any:
-    pass
+def filter_by_currency(transactions_list: List[Dict[str, Any]], currency: str) -> Iterator[Dict[str, Any]] | str:
+    """Функция возвращает итератор, выдающий транзакции, где валюта операции соответствует заданной"""
+    if not isinstance(transactions_list, list) or not isinstance(currency, str):
+        raise TypeError("Ошибка типа данных")
+
+    if len(transactions_list) > 0:
+        filter_info = filter(
+            lambda x: x["operationAmount"]["currency"]["code"] == currency,
+            transactions_list,
+        )
+        return filter_info
+    else:
+        return "Список пуст"
 
 
-def transaction_descriptions(info: List[Dict[str, Any]]):
+def transaction_descriptions(transactions_list: List[Dict[str, Any]]) -> Any:
     pass
 
 

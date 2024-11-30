@@ -1,6 +1,33 @@
 import pytest
 
-from src.generators import card_number_generator
+from tests.conftest import transactions, usd_transactions, rub_transactions
+from src.generators import card_number_generator, filter_by_currency
+
+def test_filter_by_currency_usd(transactions, usd_transactions):
+    result = filter_by_currency(transactions, "USD")
+    assert next(result) == usd_transactions
+
+
+def test_filter_by_currency_rub(transactions, rub_transactions):
+    result = filter_by_currency(transactions, "RUB")
+    assert next(result) == rub_transactions
+
+
+def test_filter_by_currency_exceptions(transactions):
+    result = filter_by_currency(transactions, "EUR")
+    assert list(result) == []
+    result = filter_by_currency([], "EUR")
+    assert result == "Список пуст"
+
+def test_filter_by_currency_wrong_type():
+    with pytest.raises(TypeError):
+        next(filter_by_currency(5, [1, 3, 2]))
+    with pytest.raises(TypeError):
+        next(filter_by_currency(" ", 2))
+    with pytest.raises(TypeError):
+        next(filter_by_currency(transactions, 2))
+    with pytest.raises(TypeError):
+        next(filter_by_currency(521, "USD"))
 
 @pytest.mark.parametrize('start, stop, expected', [(10, 12, ["0000 0000 0000 0010",
                                                              "0000 0000 0000 0011",
