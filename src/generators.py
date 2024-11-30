@@ -15,7 +15,7 @@ def card_number_generator(start: int, stop: int) -> Generator[str, None, None]:
     """Генератор номеров банковских карт в формате 'XXXX XXXX XXXX XXXX'"""
     if not isinstance(start, int) or not isinstance(stop, int):
         raise TypeError("Ошибка типа данных")
-    if start < stop:
+    if start > stop:
         raise ValueError("Границы диапазона указаны неверно")
     if len(str(start)) <= 16:
         for number in range(start, stop + 1):
