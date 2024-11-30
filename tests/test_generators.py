@@ -1,7 +1,8 @@
 import pytest
 
-from tests.conftest import transactions, usd_transactions, rub_transactions
-from src.generators import card_number_generator, filter_by_currency
+from src.generators import card_number_generator, filter_by_currency, transaction_descriptions
+from tests.conftest import rub_transactions, transactions, usd_transactions
+
 
 def test_filter_by_currency_usd(transactions, usd_transactions):
     result = filter_by_currency(transactions, "USD")
@@ -19,6 +20,7 @@ def test_filter_by_currency_exceptions(transactions):
     result = filter_by_currency([], "EUR")
     assert result == "Список пуст"
 
+
 def test_filter_by_currency_wrong_type():
     with pytest.raises(TypeError):
         next(filter_by_currency(5, [1, 3, 2]))
@@ -29,14 +31,34 @@ def test_filter_by_currency_wrong_type():
     with pytest.raises(TypeError):
         next(filter_by_currency(521, "USD"))
 
-@pytest.mark.parametrize('start, stop, expected', [(10, 12, ["0000 0000 0000 0010",
-                                                             "0000 0000 0000 0011",
-                                                             "0000 0000 0000 0012"]),
-                                                   (5, 6, ["0000 0000 0000 0005",
-                                                           "0000 0000 0000 0006"]),
-                                                   (1000, 1002, ["0000 0000 0000 1000",
-                                                                 "0000 0000 0000 1001",
-                                                                 "0000 0000 0000 1002"])])
+
+def test_transaction_descriptions(transactions):
+    result = transaction_descriptions(transactions)
+    assert next(result) == "Перевод организации"
+    assert next(result) == "Перевод со счета на счет"
+    assert next(result) == "Перевод со счета на счет"
+
+
+def test_transaction_descriptions_exceptions():
+    with pytest.raises(StopIteration):
+        next(transaction_descriptions([]))
+
+
+def test_transaction_descriptions_wrong_type():
+    with pytest.raises(TypeError):
+        next(transaction_descriptions(1))
+    with pytest.raises(TypeError):
+        next(transaction_descriptions("some_string"))
+
+
+@pytest.mark.parametrize(
+    "start, stop, expected",
+    [
+        (10, 12, ["0000 0000 0000 0010", "0000 0000 0000 0011", "0000 0000 0000 0012"]),
+        (5, 6, ["0000 0000 0000 0005", "0000 0000 0000 0006"]),
+        (1000, 1002, ["0000 0000 0000 1000", "0000 0000 0000 1001", "0000 0000 0000 1002"]),
+    ],
+)
 def test_card_number_generator(start, stop, expected):
     result = card_number_generator(start, stop)
     assert next(result) == expected[0]

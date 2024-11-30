@@ -1,10 +1,8 @@
 from typing import Any, Dict, Generator, Iterator, List
 
-from tests.conftest import transactions
-
 
 def filter_by_currency(transactions_list: List[Dict[str, Any]], currency: str) -> Iterator[Dict[str, Any]] | str:
-    """Функция возвращает итератор, выдающий транзакции, где валюта операции соответствует заданной"""
+    """Функция возвращающая итератор, где валюта операции соответствует заданной"""
     if not isinstance(transactions_list, list) or not isinstance(currency, str):
         raise TypeError("Ошибка типа данных")
 
@@ -19,7 +17,11 @@ def filter_by_currency(transactions_list: List[Dict[str, Any]], currency: str) -
 
 
 def transaction_descriptions(transactions_list: List[Dict[str, Any]]) -> Any:
-    pass
+    """Функция, возвращающая итератор, где валюта операции соответствует заданной"""
+    if not isinstance(transactions_list, list):
+        raise TypeError("Ошибка типа данных")
+    for transaction in transactions_list:
+        yield transaction["description"]
 
 
 def card_number_generator(start: int, stop: int) -> Generator[str, None, None]:
