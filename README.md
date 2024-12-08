@@ -146,7 +146,33 @@ for card_number in card_number_generator(1, 5):
     0000 0000 0000 0004
     0000 0000 0000 0005
 ```
+
+## Добавление модуля ***decorators*** с добавлением функции ***log***
+```def log(filename):
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            try:
+                result = func(*args, **kwargs)
+                if filename is not None:
+                    with open(filename, "a") as file:
+                        file.write(f"{func.__name__} ok")
+                else:
+                    print(f"{func.__name__} ok")
+                return result
+            except TypeError as e:
+                if filename is not None:
+                    with open(filename, "a") as file:
+                        file.write(f"{func.__name__} error: {e}. Inputs: {args}, {kwargs}")
+                else:
+                    print(f"{func.__name__} error: {e}. Inputs: {args}, {kwargs}")
+                raise e
+
+        return wrapper
+
+    return decorator
+```
 ## Тестирование
-### Тестами покрыто 100% кода. Все тесты завершаются ожидаемым образом
+### Тестами покрыто 98% кода. Все тесты завершаются ожидаемым образом
 Лицензия
 SkyPro IT School
