@@ -1,12 +1,13 @@
-import requests
 import os
-from dotenv import load_dotenv
 from typing import Any
 
-
+import requests
+from dotenv import load_dotenv
 
 load_dotenv()
 values = os.getenv("API-KEY")
+
+
 def conversion_currency(transactions: Any) -> Any:
     """Функция конвертации"""
     amount = transactions["operationAmount"]["amount"]
