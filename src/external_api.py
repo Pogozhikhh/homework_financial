@@ -13,8 +13,11 @@ def conversion_currency(transactions: Any) -> Any:
     amount = transactions["operationAmount"]["amount"]
     code = transactions["operationAmount"]["currency"]["code"]
     to = "RUB"
-    url = f"https://api.apilayer.com/exchangerates_data/convert?to={to}&from={code}&amount={amount}"
-    payload = {}
-    response = requests.get(url, headers={"apikey": values}, data=payload)
-    result = response.json()
-    return result["result"]
+    if code == "RUB":
+        return float(amount)
+    else:
+        url = f"https://api.apilayer.com/exchangerates_data/convert?to={to}&from={code}&amount={amount}"
+        payload = {}
+        response = requests.get(url, headers={"apikey": values}, data=payload)
+        result = response.json()
+        return result["result"]
