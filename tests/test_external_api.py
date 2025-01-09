@@ -29,4 +29,5 @@ def test_currency_conversion(mock_get, trans):
                                                {'from': 'USD', 'to': 'RUB', 'amount': 8221.37}, 'info':
                                                {'timestamp': 1724671757, 'rate': 91.475458},
                                                'date': '2024-11-26', 'result': 752053.586137}
+    mock_get.return_value.status_code = 200
     assert conversion_currency(trans) == 752053.586137

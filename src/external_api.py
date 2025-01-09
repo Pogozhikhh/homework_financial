@@ -20,8 +20,8 @@ def conversion_currency(transactions: Any) -> Any:
         payload = {}
         response = requests.get(url, headers={"apikey": values}, data=payload)
         status_code = response.status_code
+        result = response.json()
         if status_code == 200:
-            result = response.json()
             return result["result"]
         else:
             print(f"Запрос не был успешным. Возможная причина: {response.reason}")
