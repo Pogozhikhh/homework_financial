@@ -19,5 +19,9 @@ def conversion_currency(transactions: Any) -> Any:
         url = f"https://api.apilayer.com/exchangerates_data/convert?to={to}&from={code}&amount={amount}"
         payload = {}
         response = requests.get(url, headers={"apikey": values}, data=payload)
-        result = response.json()
-        return result["result"]
+        status_code = response.status_code
+        if status_code == 200:
+            result = response.json()
+            return result["result"]
+        else:
+            print(f"Запрос не был успешным. Возможная причина: {response.reason}")
