@@ -9,7 +9,7 @@ abs_file_path = os.path.abspath(rel_file_path)
 
 logger = logging.getLogger("masks")
 logger.setLevel(logging.INFO)
-file_handler = logging.FileHandler(rel_file_path,"w", encoding="utf-8")
+file_handler = logging.FileHandler(rel_file_path, "w", encoding="utf-8")
 file_formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 file_handler.setFormatter(file_formatter)
 logger.addHandler(file_handler)
@@ -34,5 +34,5 @@ def get_mask_account(card_number: Any) -> str:
     raise ValueError("Неправильная длина номера")
 
 
-print(get_mask_card_number(123456789012))
-print(get_mask_account(12345678901234567890))
+# print(get_mask_card_number(123456789012))
+# print(get_mask_account(12345678901234567890))
