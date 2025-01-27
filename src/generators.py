@@ -1,19 +1,30 @@
 from typing import Any, Dict, Generator, Iterator, List
 
 
+def check_key(dict_: dict, currency: str) -> bool:
+    """Функция получает на вход словарь с данными о транзакций и валютой для сортировки,
+    и возвращает если есть совпадение по валюте и присутствуют все ключи в словаре."""
+    try:
+        if dict_["operationAmount"]["currency"]["code"] == currency:
+            return True
+        else:
+            return False
+    except KeyError:
+        return False
+
+
 def filter_by_currency(transactions_list: List[Dict[str, Any]], currency: str) -> Iterator[Dict[str, Any]] | str:
     """Функция возвращающая итератор, где валюта операции соответствует заданной"""
-    if not isinstance(transactions_list, list) or not isinstance(currency, str):
-        raise TypeError("Ошибка типа данных")
+    filter_transactions = filter(lambda x: check_key(x, currency), transactions_list)
 
-    if len(transactions_list) > 0:
-        filter_info = filter(
-            lambda x: x["operationAmount"]["currency"]["code"] == currency,
-            transactions_list,
-        )
-        return filter_info
-    else:
-        return "Список пуст"
+    for el in filter_transactions:
+        yield el
+
+
+def filter_by_currency_csv(transactions: list, currency: str) -> Any:
+    for transaction in transactions:
+        if transaction.get("currency_code") == currency:
+            return transaction
 
 
 def transaction_descriptions(transactions_list: List[Dict[str, Any]]) -> Any:

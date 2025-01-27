@@ -1,7 +1,7 @@
 import pytest
 
 from src.generators import card_number_generator, filter_by_currency, transaction_descriptions
-from tests.conftest import rub_transactions, transactions, usd_transactions
+from tests.conftest import transactions
 
 
 def test_filter_by_currency_usd(transactions, usd_transactions):
@@ -12,13 +12,6 @@ def test_filter_by_currency_usd(transactions, usd_transactions):
 def test_filter_by_currency_rub(transactions, rub_transactions):
     result = filter_by_currency(transactions, "RUB")
     assert next(result) == rub_transactions
-
-
-def test_filter_by_currency_exceptions(transactions):
-    result = filter_by_currency(transactions, "EUR")
-    assert list(result) == []
-    result = filter_by_currency([], "EUR")
-    assert result == "Список пуст"
 
 
 def test_filter_by_currency_wrong_type():

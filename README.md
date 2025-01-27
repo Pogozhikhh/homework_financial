@@ -1,11 +1,6 @@
-# Домашняя работа 10.1 "Продвинутый Git"
+# Домашняя работа 13.2
 ## Цель проекта
-### Ознакомиться с технологией GitHub:
-
-**создавать и настраивать удаленные репозитории;
-обучиться работать с ветками, создавать их, объединять, удалять;
-изучить операции ***git push, git merge, pull request.***
-Закрепить усвоение материала урока ***9.2 ("Основы Git"): команды git add, git commit.*****
+### Написать функцию "main" в модуле main , которая отвечает за основную логику проекта и связывает функциональности между собой.**
 
 ## Инструкция по установке
 1. ### Клонируйте репозиторий:
@@ -172,7 +167,49 @@ for card_number in card_number_generator(1, 5):
 
     return decorator
 ```
+
+## Добавление модуля ***filter_search_pattern*** с добавлением функций ***filter_banking_transactions_by_description*** ,***filter_banking_description*** , ***search_matches*** 
+
+## Функция ***filter_banking_transactions_by_description***
+```
+"""Функция, возвращающая список, с содержанием указанной строки"""
+
+    descr = []
+    for description in banking_description:
+        dict_str = str(description)
+        if re.search(search_bar, dict_str, flags=re.IGNORECASE):
+            descr.append(dict_str)
+    return descr
+```
+## Функция ***filter_banking_description***
+```
+"""Функция, возвращающая словарь, в котором ключи - это названия категорий, а значение - это количество операций"""
+    string = []
+    for categories in category:
+        pattern = categories
+        description = str(banking_description)
+        string_ = re.findall(pattern, description, flags=re.IGNORECASE)
+        string = string + string_
+
+    result = dict(Counter(string))
+    return result
+```
+## Функция ***search_matches***
+```
+"""Функция принимает на вход список словарей и строку поиска и возвращает список словарей где найдены совпадения"""
+    pattern = re.compile(str_search, flags=re.IGNORECASE)
+    new_list = []
+    for el in list_dict:
+        for value in el.values():
+            if pattern.search(str(value)):
+                new_list.append(el)
+            else:
+                pass
+    if not new_list:
+        return "Совпадений не найдено!"
+    else:
+        return new_list
+```
+
 ## Тестирование
-### Тестами покрыто 98% кода. Все тесты завершаются ожидаемым образом
-Лицензия
-SkyPro IT School
+### Тестами покрыто 91% кода. Все тесты завершаются ожидаемым образом
